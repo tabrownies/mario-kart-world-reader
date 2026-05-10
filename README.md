@@ -90,7 +90,7 @@ We will be using mp4 files for video, png files for frame images, and csv files 
 Each video will have a unique id attached to it. It will be made of the follwoing connected by underscores:
 
 1. mkw
-1. The Shortened Race Name (see this [document](miscilanious.md))
+1. The Shortened Race Name (see this [document](MISCELLANEOUS.md))
 1. The Number of Players on the screen prefixed by p (i.e. p1, p2, p3, p4)
 1. Race Type (standard, knockout, time_trial)
     - to begin it will *only* be standard and we will *only* be using standard lap based tracks
