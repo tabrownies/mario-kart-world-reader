@@ -79,11 +79,13 @@ An application that will provide real-time commentary to the player. This could 
 
 ## Other Notes
 
+### Storage Location
+
+For now, we will storing everything locally during the data collection and classification process. In the future, when we start working on the ML models, we will likely move everything to a Google Drive or other cloud storage solution for easier collaboration.
+
 ### Data Collection Format
 
-#### Video
-
-We will be using mp4 files for video and png files for frame images. We will be downsampling these to 1080p for storage and to ensure that budget capture cards will still work.
+We will be using mp4 files for video, png files for frame images, and csv files for the classification data. We will be downsampling these to 1080p for storage and to ensure that budget capture cards will still work.
 
 Each video will have a unique id attached to it. It will be made of the follwoing connected by underscores:
 
@@ -96,6 +98,14 @@ Each video will have a unique id attached to it. It will be made of the follwoin
 1. The UTC Date in mm_dd_yyyy format
 1. The UTC time in hh_mm_ss format (using 24 hour time)
 
+#### Video
+
+The video will simply be the id.
+
+#### Classification Data
+
+The classification data will be the id prepended with UNFINISHED_ until the data is complete.
+
 #### Frame
 
 Each frame is assigned a unique id that is composed of the follwoing connected by underscores:
@@ -104,14 +114,21 @@ Each frame is assigned a unique id that is composed of the follwoing connected b
     - For convenience, we can pad these with zeros. We will start with 6 digits (000000)
 1. video id (see above)
 
-For exammple
-Video ID:
-mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.mp4
+#### Example
 
-Frame IDs:
-000000_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png
-000001_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png
-000002_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png
+##### Video File
+
+`mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.mp4`
+
+##### CSV File
+
+`mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.csv` **or** `UNFINISHED_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.csv`
+
+##### Frame files
+
+`000000_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
+`000001_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
+`000002_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
 ...
 
 ## History
