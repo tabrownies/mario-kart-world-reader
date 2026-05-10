@@ -90,11 +90,13 @@ We will be using mp4 files for video, png files for frame images, and csv files 
 Each video will have a unique id attached to it. It will be made of the follwoing connected by underscores:
 
 1. mkw
-1. The Shortened Race Name (see this [document](MISCELLANEOUS.md))
+1. The Shortened Race Name (see this [document](MISCELLANEOUS.md#mario-kart-world-track-short-names))
 1. The Number of Players on the screen prefixed by p (i.e. p1, p2, p3, p4)
 1. Race Type (standard, knockout, time_trial)
     - to begin it will *only* be standard and we will *only* be using standard lap based tracks
 1. Whether it is online (online, local)
+1. Gamechat mode (nochat)
+    - to begin it will *only* be `nochat`, in the future this will be necessary to handle how it makes the screen smaller
 1. The UTC Date in mm_dd_yyyy format
 1. The UTC time in hh_mm_ss format (using 24 hour time)
 
@@ -118,17 +120,17 @@ Each frame is assigned a unique id that is composed of the follwoing connected b
 
 ##### Video File
 
-`mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.mp4`
+`mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.mp4`
 
 ##### CSV File
 
-`mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.csv` **or** `UNFINISHED_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.csv`
+`mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.csv` **or** `UNFINISHED_mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.csv`
 
 ##### Frame files
 
-`000000_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
-`000001_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
-`000002_mkw_royal_ruins_p2_standard_online_10_09_2026_06_22_34.png`
+`000000_mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.png`
+`000001_mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.png`
+`000002_mkw_royal_ruins_p2_standard_online_nochat_10_09_2026_06_22_34.png`
 ...
 
 ## History
