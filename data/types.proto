@@ -1,0 +1,154 @@
+// Note: Protobuf Edition 2023 is the latest available. Edition 2026 does not exist yet.
+// For compatibility with the current @bufbuild tools, proto3 is the standard syntax used.
+syntax = "proto3";
+
+package mkw.shared;
+
+enum Confidence {
+  CONFIDENCE_UNKNOWN = 0; // CSV empty + No guess. UI: User must select.
+  CONFIDENCE_UNCERTAIN = 1; // CSV empty + Heuristic guess. UI: User must confirm.
+  CONFIDENCE_CERTAIN = 2; // Value in CSV. UI: Pre-filled, user can skip.
+}
+
+enum RacePhase {
+  PHASE_UNKNOWN = 0;
+  PHASE_LOADING = 1;
+  PHASE_COUNTDOWN = 2;
+  PHASE_RACING = 3;
+  PHASE_PAUSED = 4;
+  PHASE_FINISHED = 5;
+}
+
+enum ItemType {
+  ITEM_NONE = 0;
+  ITEM_COIN = 1;
+  ITEM_MUSHROOM = 2;
+  ITEM_TRIPLE_MUSHROOM = 3;
+  ITEM_GOLDEN_MUSHROOM = 4;
+  ITEM_GREEN_SHELL = 5;
+  ITEM_TRIPLE_GREEN_SHELLS = 6;
+  ITEM_RED_SHELL = 7;
+  ITEM_TRIPLE_RED_SHELLS = 8;
+  ITEM_BANANA = 9;
+  ITEM_TRIPLE_BANANAS = 10;
+  ITEM_BOB_OMB = 11;
+  ITEM_STAR = 12;
+  ITEM_LIGHTNING = 13;
+  ITEM_BULLET_BILL = 14;
+  ITEM_BLOOPER = 15;
+  ITEM_BOO = 16;
+  ITEM_BOOMERANG = 18;
+  ITEM_SUPER_HORN = 19;
+  ITEM_ROULETTE = 21; // Spinning state
+
+  // Mario Kart World Exclusive/New Items
+  ITEM_COIN_SHELL = 22;
+  ITEM_DASH_FOOD = 23;
+  ITEM_KAMEK = 24;
+  ITEM_SPINY_SHELL = 25; // Blue shell
+  ITEM_FIRE_FLOWER = 26;
+  ITEM_ICE_FLOWER = 27;
+  ITEM_HAMMER = 28;
+  ITEM_FEATHER = 29;
+  ITEM_COIN_BOX = 30;
+
+  ITEM_UNKNOWN = 31;
+}
+
+enum Placement {
+  PLACE_UNKNOWN = 0;
+  PLACE_1 = 1;
+  PLACE_2 = 2;
+  PLACE_3 = 3;
+  PLACE_4 = 4;
+  PLACE_5 = 5;
+  PLACE_6 = 6;
+  PLACE_7 = 7;
+  PLACE_8 = 8;
+  PLACE_9 = 9;
+  PLACE_10 = 10;
+  PLACE_11 = 11;
+  PLACE_12 = 12;
+  PLACE_13 = 13;
+  PLACE_14 = 14;
+  PLACE_15 = 15;
+  PLACE_16 = 16;
+  PLACE_17 = 17;
+  PLACE_18 = 18;
+  PLACE_19 = 19;
+  PLACE_20 = 20;
+  PLACE_21 = 21;
+  PLACE_22 = 22;
+  PLACE_23 = 23;
+  PLACE_24 = 24;
+}
+
+enum LapCount {
+  LAP_UNKNOWN = 0;
+  LAP_1 = 1;
+  LAP_2 = 2;
+  LAP_3 = 3;
+  LAP_4 = 4;
+  LAP_5 = 5;
+  LAP_6 = 6;
+  LAP_7 = 7;
+}
+
+enum Track {
+  TRACK_UNKNOWN = 0;
+  TRACK_RAINBOW_ROAD = 1;
+}
+
+message RaceMetadata {
+  Track track = 1;
+  int32 total_laps = 2;
+}
+
+// Defines a Backend Heuristic Guess
+message TelemetryGuess {
+  Confidence confidence = 1;
+  oneof value {
+    Placement placement = 2;
+    LapCount lap_count = 3;
+    int32 coin_count = 4;
+    ItemType item = 5;
+    RacePhase race_phase = 6;
+    Track track = 7;
+  }
+}
+
+// 1. Requesting a frame and its info to classify (Backend decides what to serve next)
+message GetFrameClassificationRequest {}
+
+// 1. Getting the frame and info back
+message GetFrameClassificationResponse {
+  string frame_id = 1;
+  string image_url = 2;
+
+  RaceMetadata metadata = 3;
+
+  TelemetryGuess placement = 4;
+  TelemetryGuess lap_count = 5;
+  TelemetryGuess coin_count = 6;
+  TelemetryGuess primary_item = 7;
+  TelemetryGuess secondary_item = 8;
+  TelemetryGuess race_phase = 9;
+}
+
+// 2. Sending the guesses back
+message SaveFrameClassificationRequest {
+  string frame_id = 1;
+
+  Placement placement = 2;
+  LapCount lap_count = 3;
+  optional int32 coin_count = 4;
+  ItemType primary_item = 5;
+  ItemType secondary_item = 6;
+  RacePhase race_phase = 7;
+  Track track = 8;
+}
+
+// 2. Getting an okay back
+message SaveFrameClassificationResponse {
+  bool success = 1;
+}

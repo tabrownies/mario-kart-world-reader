@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Python
+.venv
+venv
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.python-version
+
+# Next.js
+.next/
+out/
+build/
+
+# Backend Build
+dist/
+*.tsbuildinfo
+
+# Environments
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Data (Optional: ignore local run data if needed)
+# data/runs/*
