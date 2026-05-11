@@ -37,3 +37,5 @@ Thumbs.db
 
 # Data (Optional: ignore local run data if needed)
 # data/runs/*
+
+training_data/
