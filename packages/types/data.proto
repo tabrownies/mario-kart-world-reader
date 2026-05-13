@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package types;
+
+// ------------------------
+// START OF CLASSIFIED ENUMS
+// In the csvs these will be listed as strings that are the lowercase version of the enum name
+// -----------------------
+
+enum RaceCourseShortenedName {
+  // Enums must have unique names within the package
+  TRACK_UNKNOWN = 0;
+  RAINBOW_ROAD = 1;
+  // we will fill these out as we go
+  // Convention: intermission tracks named as <course_name_one>_to_<course_name_two>
+}
+
+enum RacePhase {
+  PHASE_UNKNOWN = 0;
+  PRE_COUNTDOWN = 1;
+  COUNTDOWN = 2;
+  RACING = 3;
+  FINISHED = 4;
+}
+
+enum LapNumber {
+  LAP_UNKNOWN = 0;
+  LAP_1 = 1;
+  LAP_2 = 2;
+  LAP_3 = 3;
+  LAP_4 = 4;
+  LAP_5 = 5;
+}
+
+enum Placement {
+  PLACE_UNKNOWN = 0;
+  PLACE_1 = 1;
+  PLACE_2 = 2;
+  PLACE_3 = 3;
+  PLACE_4 = 4;
+  PLACE_5 = 5;
+  PLACE_6 = 6;
+  PLACE_7 = 7;
+  PLACE_8 = 8;
+  PLACE_9 = 9;
+  PLACE_10 = 10;
+  PLACE_11 = 11;
+  PLACE_12 = 12;
+  PLACE_13 = 13;
+  PLACE_14 = 14;
+  PLACE_15 = 15;
+  PLACE_16 = 16;
+  PLACE_17 = 17;
+  PLACE_18 = 18;
+  PLACE_19 = 19;
+  PLACE_20 = 20;
+  PLACE_21 = 21;
+  PLACE_22 = 22;
+  PLACE_23 = 23;
+  PLACE_24 = 24;
+}
+
+enum Item {
+  ITEM_UNKNOWN = 0;
+  NONE = 1;
+  ITEM_ROULETTE = 2;
+  GREEN_SHELL = 3;
+  RED_SHELL = 4;
+  COIN_SHELL = 5;
+  BANANA = 6;
+  MUSHROOM = 7;
+  KAMEK = 8;
+  BLOOPER=9;
+  BOBOMB=10;
+  BOO=11;
+  BOOMERANG=12;
+  BULLET_BILL=13;
+  COIN=14;
+  FEATHER=15;
+  FIRE_FLOWER=16;
+  HAMMER=17;
+  ICE_FLOWER=18;
+  LIGHTNING=19;
+  MEGA_MUSHROOM=20;
+  MUSHROOM=21;
+  SPINY_SHELL=22;
+  SUPER_HORN=23;
+  STAR=24;
+  TRIPPLE_BANANAS=25;
+  TRIPPLE_GREEN_SHELLS=26;
+  TRIPPLE_MUSHROOMS=27;
+  TRIPPLE_RED_SHELLS=28;
+  QUESTION_MARK_BOX=29;
+  DASH_FOOD_ROULETTE =30;
+  DASH_FOOD_HAMBURGER=31;
+  DASH_FOOD_DONUT=32;
+  DASH_FOOD_SPICY_CURRY=33;
+  DASH_FOOD_BARBECUE=34;
+  DASH_FOOD_WILD_BONE=35;
+  DASH_FOOD_PANCAKE=36;
+  DASH_FOOD_ICE_CREAM=37;
+  DASH_FOOD_MAGMA_CURRY=38;
+  DASH_FOOD_FRUIT_BARREL=39;
+  DASH_FOOD_MOO_MOO_MILK=40;
+  DASH_FOOD_PANCAKE=41;
+  DASH_FOOD_PAN=42;
+  DASH_FOOD_PIZZA=43;
+  DASH_FOOD_FRITTER_AND_POTATO=44;
+  DASH_FOOD_TAKOYAKI=45;
+  DASH_FOOD_RINGO_AME=46;
+  DASH_FOOD_PUKUPUKI_TAIYAKI=47;
+  DASH_FOOD_SUSHI=48;
+  DASH_FOOD_WHITE_CHOCO_SNACK=49;
+  DASH_FOOD_ICHIGO_CHOCO_SNACK=50;
+  DASH_FOOD_BLACK_CHOCO_SNACK=51;
+  DASH_FOOD_POPCORN=52;
+  DASH_FOOD_LUNCHBOX=53;
+}
+
+enum NumCoins {
+  COIN_UNKNOWN = 0;
+  COIN_0 = 1;
+  COIN_1 = 2;
+  COIN_2 = 3;
+  COIN_3 = 4;
+  COIN_4 = 5;
+  COIN_5 = 6;
+  COIN_6 = 7;
+  COIN_7 = 8;
+  COIN_8 = 9;
+  COIN_9 = 10;
+  COIN_10 = 11;
+  COIN_11 = 12;
+  COIN_12 = 13;
+  COIN_13 = 14;
+  COIN_14 = 15;
+  COIN_15 = 16;
+  COIN_16 = 17;
+  COIN_17 = 18;
+  COIN_18 = 19;
+  COIN_19 = 20;
+  COIN_20 = 21;
+}
+
+// END OF CLASSIFIED ENUMS
+
+message FrameData {
+  LapNumber lap_number = 1;
+  RacePhase race_phase = 2;
+  NumCoins num_coins = 3;
+  Item primary_item = 4;
+  Item secondary_item = 5;
+  Placement placement = 6;
+  RaceCourseShortenedName race_course = 7;
+}
+
+message RaceCourse {
+  string name = 1;
+  RaceCourseShortenedName shortened_name = 2;
+  RaceCourseType type = 3;
+  uint32 number_of_laps = 4;
+
+  enum RaceCourseType {
+    COURSE_TYPE_UNKNOWN = 0;
+    STANDARD_LOOP = 1;
+    STANDARD_POINT_TO_POINT = 2;
+    INTERMISSION = 3;
+    KNOCKOUT_SECTION = 4;
+  }
+}
