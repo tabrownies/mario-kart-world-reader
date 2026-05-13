@@ -22,14 +22,14 @@ export class EnumTranslator {
     return data.racePhaseFromJSON(str.toUpperCase());
   }
 
-  // --- RaceCourseShortenedName ---
-  public raceCourseShortenedNameEnumToString(value: data.RaceCourseShortenedName): string {
-    const str = data.raceCourseShortenedNameToJSON(value);
+  // --- RaceCourse ---
+  public raceCourseEnumToString(value: data.RaceCourse): string {
+    const str = data.raceCourseToJSON(value);
     return str === "UNRECOGNIZED" ? "track_unknown" : str.toLowerCase();
   }
 
-  public raceCourseShortenedNameStringToEnum(str: string): data.RaceCourseShortenedName {
-    return data.raceCourseShortenedNameFromJSON(str.toUpperCase());
+  public raceCourseStringToEnum(str: string): data.RaceCourse {
+    return data.raceCourseFromJSON(str.toUpperCase());
   }
 
   // --- LapNumber ---
@@ -73,13 +73,13 @@ export class EnumTranslator {
   }
 
   // --- RaceCourseType ---
-  public raceCourseTypeEnumToString(value: data.RaceCourse_RaceCourseType): string {
-    const str = data.raceCourse_RaceCourseTypeToJSON(value);
+  public raceCourseTypeEnumToString(value: data.RaceCourseInfo_RaceCourseType): string {
+    const str = data.raceCourseInfo_RaceCourseTypeToJSON(value);
     return str === "UNRECOGNIZED" ? "course_type_unknown" : str.toLowerCase();
   }
 
   public raceCourseTypeStringToEnum(str: string): data.RaceCourse_RaceCourseType {
-    return data.raceCourse_RaceCourseTypeFromJSON(str.toUpperCase());
+    return data.raceCourseInfo_RaceCourseTypeFromJSON(str.toUpperCase());
   }
 }
 
