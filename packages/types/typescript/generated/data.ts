@@ -9,7 +9,8 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
 export const protobufPackage = "types";
 
-export enum RaceCourseShortenedName {
+export enum RaceCourse {
+  /** TRACK_UNKNOWN - Enums must have unique names within the package */
   TRACK_UNKNOWN = 0,
   /**
    * RAINBOW_ROAD - we will fill these out as we go
@@ -19,28 +20,28 @@ export enum RaceCourseShortenedName {
   UNRECOGNIZED = -1,
 }
 
-export function raceCourseShortenedNameFromJSON(object: any): RaceCourseShortenedName {
+export function raceCourseFromJSON(object: any): RaceCourse {
   switch (object) {
     case 0:
     case "TRACK_UNKNOWN":
-      return RaceCourseShortenedName.TRACK_UNKNOWN;
+      return RaceCourse.TRACK_UNKNOWN;
     case 1:
     case "RAINBOW_ROAD":
-      return RaceCourseShortenedName.RAINBOW_ROAD;
+      return RaceCourse.RAINBOW_ROAD;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return RaceCourseShortenedName.UNRECOGNIZED;
+      return RaceCourse.UNRECOGNIZED;
   }
 }
 
-export function raceCourseShortenedNameToJSON(object: RaceCourseShortenedName): string {
+export function raceCourseToJSON(object: RaceCourse): string {
   switch (object) {
-    case RaceCourseShortenedName.TRACK_UNKNOWN:
+    case RaceCourse.TRACK_UNKNOWN:
       return "TRACK_UNKNOWN";
-    case RaceCourseShortenedName.RAINBOW_ROAD:
+    case RaceCourse.RAINBOW_ROAD:
       return "RAINBOW_ROAD";
-    case RaceCourseShortenedName.UNRECOGNIZED:
+    case RaceCourse.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -347,39 +348,37 @@ export enum Item {
   ICE_FLOWER = 18,
   LIGHTNING = 19,
   MEGA_MUSHROOM = 20,
-  /** SPINY_SHELL - Removed duplicate MUSHROOM at 21 */
-  SPINY_SHELL = 22,
-  SUPER_HORN = 23,
-  STAR = 24,
-  TRIPLE_BANANAS = 25,
-  TRIPLE_GREEN_SHELLS = 26,
-  TRIPLE_MUSHROOMS = 27,
-  TRIPLE_RED_SHELLS = 28,
-  QUESTION_MARK_BOX = 29,
-  DASH_FOOD_ROULETTE = 30,
-  DASH_FOOD_HAMBURGER = 31,
-  DASH_FOOD_DONUT = 32,
-  DASH_FOOD_SPICY_CURRY = 33,
-  DASH_FOOD_BARBECUE = 34,
-  DASH_FOOD_WILD_BONE = 35,
-  DASH_FOOD_PANCAKE = 36,
-  DASH_FOOD_ICE_CREAM = 37,
-  DASH_FOOD_MAGMA_CURRY = 38,
-  DASH_FOOD_FRUIT_BARREL = 39,
-  DASH_FOOD_MOO_MOO_MILK = 40,
-  /** DASH_FOOD_PAN - Removed duplicate DASH_FOOD_PANCAKE at 41 */
-  DASH_FOOD_PAN = 42,
-  DASH_FOOD_PIZZA = 43,
-  DASH_FOOD_FRITTER_AND_POTATO = 44,
-  DASH_FOOD_TAKOYAKI = 45,
-  DASH_FOOD_RINGO_AME = 46,
-  DASH_FOOD_PUKUPUKI_TAIYAKI = 47,
-  DASH_FOOD_SUSHI = 48,
-  DASH_FOOD_WHITE_CHOCO_SNACK = 49,
-  DASH_FOOD_ICHIGO_CHOCO_SNACK = 50,
-  DASH_FOOD_BLACK_CHOCO_SNACK = 51,
-  DASH_FOOD_POPCORN = 52,
-  DASH_FOOD_LUNCHBOX = 53,
+  SPINY_SHELL = 21,
+  SUPER_HORN = 22,
+  STAR = 23,
+  TRIPPLE_BANANAS = 24,
+  TRIPPLE_GREEN_SHELLS = 25,
+  TRIPPLE_MUSHROOMS = 26,
+  TRIPPLE_RED_SHELLS = 27,
+  QUESTION_MARK_BOX = 28,
+  DASH_FOOD_ROULETTE = 29,
+  DASH_FOOD_HAMBURGER = 30,
+  DASH_FOOD_DONUT = 31,
+  DASH_FOOD_SPICY_CURRY = 32,
+  DASH_FOOD_BARBECUE = 33,
+  DASH_FOOD_WILD_BONE = 34,
+  DASH_FOOD_ICE_CREAM = 35,
+  DASH_FOOD_MAGMA_CURRY = 36,
+  DASH_FOOD_FRUIT_BARREL = 37,
+  DASH_FOOD_MOO_MOO_MILK = 38,
+  DASH_FOOD_PANCAKE = 39,
+  DASH_FOOD_PAN = 40,
+  DASH_FOOD_PIZZA = 41,
+  DASH_FOOD_FRITTER_AND_POTATO = 42,
+  DASH_FOOD_TAKOYAKI = 43,
+  DASH_FOOD_RINGO_AME = 44,
+  DASH_FOOD_PUKUPUKI_TAIYAKI = 45,
+  DASH_FOOD_SUSHI = 46,
+  DASH_FOOD_WHITE_CHOCO_SNACK = 47,
+  DASH_FOOD_ICHIGO_CHOCO_SNACK = 48,
+  DASH_FOOD_BLACK_CHOCO_SNACK = 49,
+  DASH_FOOD_POPCORN = 50,
+  DASH_FOOD_LUNCHBOX = 51,
   UNRECOGNIZED = -1,
 }
 
@@ -448,97 +447,97 @@ export function itemFromJSON(object: any): Item {
     case 20:
     case "MEGA_MUSHROOM":
       return Item.MEGA_MUSHROOM;
-    case 22:
+    case 21:
     case "SPINY_SHELL":
       return Item.SPINY_SHELL;
-    case 23:
+    case 22:
     case "SUPER_HORN":
       return Item.SUPER_HORN;
-    case 24:
+    case 23:
     case "STAR":
       return Item.STAR;
+    case 24:
+    case "TRIPPLE_BANANAS":
+      return Item.TRIPPLE_BANANAS;
     case 25:
-    case "TRIPLE_BANANAS":
-      return Item.TRIPLE_BANANAS;
+    case "TRIPPLE_GREEN_SHELLS":
+      return Item.TRIPPLE_GREEN_SHELLS;
     case 26:
-    case "TRIPLE_GREEN_SHELLS":
-      return Item.TRIPLE_GREEN_SHELLS;
+    case "TRIPPLE_MUSHROOMS":
+      return Item.TRIPPLE_MUSHROOMS;
     case 27:
-    case "TRIPLE_MUSHROOMS":
-      return Item.TRIPLE_MUSHROOMS;
+    case "TRIPPLE_RED_SHELLS":
+      return Item.TRIPPLE_RED_SHELLS;
     case 28:
-    case "TRIPLE_RED_SHELLS":
-      return Item.TRIPLE_RED_SHELLS;
-    case 29:
     case "QUESTION_MARK_BOX":
       return Item.QUESTION_MARK_BOX;
-    case 30:
+    case 29:
     case "DASH_FOOD_ROULETTE":
       return Item.DASH_FOOD_ROULETTE;
-    case 31:
+    case 30:
     case "DASH_FOOD_HAMBURGER":
       return Item.DASH_FOOD_HAMBURGER;
-    case 32:
+    case 31:
     case "DASH_FOOD_DONUT":
       return Item.DASH_FOOD_DONUT;
-    case 33:
+    case 32:
     case "DASH_FOOD_SPICY_CURRY":
       return Item.DASH_FOOD_SPICY_CURRY;
-    case 34:
+    case 33:
     case "DASH_FOOD_BARBECUE":
       return Item.DASH_FOOD_BARBECUE;
-    case 35:
+    case 34:
     case "DASH_FOOD_WILD_BONE":
       return Item.DASH_FOOD_WILD_BONE;
-    case 36:
-    case "DASH_FOOD_PANCAKE":
-      return Item.DASH_FOOD_PANCAKE;
-    case 37:
+    case 35:
     case "DASH_FOOD_ICE_CREAM":
       return Item.DASH_FOOD_ICE_CREAM;
-    case 38:
+    case 36:
     case "DASH_FOOD_MAGMA_CURRY":
       return Item.DASH_FOOD_MAGMA_CURRY;
-    case 39:
+    case 37:
     case "DASH_FOOD_FRUIT_BARREL":
       return Item.DASH_FOOD_FRUIT_BARREL;
-    case 40:
+    case 38:
     case "DASH_FOOD_MOO_MOO_MILK":
       return Item.DASH_FOOD_MOO_MOO_MILK;
-    case 42:
+    case 39:
+    case "DASH_FOOD_PANCAKE":
+      return Item.DASH_FOOD_PANCAKE;
+    case 40:
     case "DASH_FOOD_PAN":
       return Item.DASH_FOOD_PAN;
-    case 43:
+    case 41:
     case "DASH_FOOD_PIZZA":
       return Item.DASH_FOOD_PIZZA;
-    case 44:
+    case 42:
     case "DASH_FOOD_FRITTER_AND_POTATO":
       return Item.DASH_FOOD_FRITTER_AND_POTATO;
-    case 45:
+    case 43:
     case "DASH_FOOD_TAKOYAKI":
       return Item.DASH_FOOD_TAKOYAKI;
-    case 46:
+    case 44:
     case "DASH_FOOD_RINGO_AME":
       return Item.DASH_FOOD_RINGO_AME;
-    case 47:
+    case 45:
     case "DASH_FOOD_PUKUPUKI_TAIYAKI":
       return Item.DASH_FOOD_PUKUPUKI_TAIYAKI;
-    case 48:
+    case 46:
     case "DASH_FOOD_SUSHI":
       return Item.DASH_FOOD_SUSHI;
-    case 49:
+    case 47:
     case "DASH_FOOD_WHITE_CHOCO_SNACK":
       return Item.DASH_FOOD_WHITE_CHOCO_SNACK;
-    case 50:
+    case 48:
     case "DASH_FOOD_ICHIGO_CHOCO_SNACK":
       return Item.DASH_FOOD_ICHIGO_CHOCO_SNACK;
-    case 51:
+    case 49:
     case "DASH_FOOD_BLACK_CHOCO_SNACK":
       return Item.DASH_FOOD_BLACK_CHOCO_SNACK;
-    case 52:
+    case 50:
     case "DASH_FOOD_POPCORN":
       return Item.DASH_FOOD_POPCORN;
-    case 53:
+    case 51:
     case "DASH_FOOD_LUNCHBOX":
       return Item.DASH_FOOD_LUNCHBOX;
     case -1:
@@ -598,14 +597,14 @@ export function itemToJSON(object: Item): string {
       return "SUPER_HORN";
     case Item.STAR:
       return "STAR";
-    case Item.TRIPLE_BANANAS:
-      return "TRIPLE_BANANAS";
-    case Item.TRIPLE_GREEN_SHELLS:
-      return "TRIPLE_GREEN_SHELLS";
-    case Item.TRIPLE_MUSHROOMS:
-      return "TRIPLE_MUSHROOMS";
-    case Item.TRIPLE_RED_SHELLS:
-      return "TRIPLE_RED_SHELLS";
+    case Item.TRIPPLE_BANANAS:
+      return "TRIPPLE_BANANAS";
+    case Item.TRIPPLE_GREEN_SHELLS:
+      return "TRIPPLE_GREEN_SHELLS";
+    case Item.TRIPPLE_MUSHROOMS:
+      return "TRIPPLE_MUSHROOMS";
+    case Item.TRIPPLE_RED_SHELLS:
+      return "TRIPPLE_RED_SHELLS";
     case Item.QUESTION_MARK_BOX:
       return "QUESTION_MARK_BOX";
     case Item.DASH_FOOD_ROULETTE:
@@ -620,8 +619,6 @@ export function itemToJSON(object: Item): string {
       return "DASH_FOOD_BARBECUE";
     case Item.DASH_FOOD_WILD_BONE:
       return "DASH_FOOD_WILD_BONE";
-    case Item.DASH_FOOD_PANCAKE:
-      return "DASH_FOOD_PANCAKE";
     case Item.DASH_FOOD_ICE_CREAM:
       return "DASH_FOOD_ICE_CREAM";
     case Item.DASH_FOOD_MAGMA_CURRY:
@@ -630,6 +627,8 @@ export function itemToJSON(object: Item): string {
       return "DASH_FOOD_FRUIT_BARREL";
     case Item.DASH_FOOD_MOO_MOO_MILK:
       return "DASH_FOOD_MOO_MOO_MILK";
+    case Item.DASH_FOOD_PANCAKE:
+      return "DASH_FOOD_PANCAKE";
     case Item.DASH_FOOD_PAN:
       return "DASH_FOOD_PAN";
     case Item.DASH_FOOD_PIZZA:
@@ -820,17 +819,17 @@ export interface FrameData {
   primaryItem: Item;
   secondaryItem: Item;
   placement: Placement;
-  raceCourse: RaceCourseShortenedName;
+  raceCourse: RaceCourse;
 }
 
-export interface RaceCourse {
+export interface RaceCourseInfo {
   name: string;
-  shortenedName: RaceCourseShortenedName;
-  type: RaceCourse_RaceCourseType;
-  numberOfLaps: number;
+  shortenedName: RaceCourse;
+  type: RaceCourseInfo_RaceCourseType;
+  numberOfLaps: LapNumber;
 }
 
-export enum RaceCourse_RaceCourseType {
+export enum RaceCourseInfo_RaceCourseType {
   COURSE_TYPE_UNKNOWN = 0,
   STANDARD_LOOP = 1,
   STANDARD_POINT_TO_POINT = 2,
@@ -839,43 +838,43 @@ export enum RaceCourse_RaceCourseType {
   UNRECOGNIZED = -1,
 }
 
-export function raceCourse_RaceCourseTypeFromJSON(object: any): RaceCourse_RaceCourseType {
+export function raceCourseInfo_RaceCourseTypeFromJSON(object: any): RaceCourseInfo_RaceCourseType {
   switch (object) {
     case 0:
     case "COURSE_TYPE_UNKNOWN":
-      return RaceCourse_RaceCourseType.COURSE_TYPE_UNKNOWN;
+      return RaceCourseInfo_RaceCourseType.COURSE_TYPE_UNKNOWN;
     case 1:
     case "STANDARD_LOOP":
-      return RaceCourse_RaceCourseType.STANDARD_LOOP;
+      return RaceCourseInfo_RaceCourseType.STANDARD_LOOP;
     case 2:
     case "STANDARD_POINT_TO_POINT":
-      return RaceCourse_RaceCourseType.STANDARD_POINT_TO_POINT;
+      return RaceCourseInfo_RaceCourseType.STANDARD_POINT_TO_POINT;
     case 3:
     case "INTERMISSION":
-      return RaceCourse_RaceCourseType.INTERMISSION;
+      return RaceCourseInfo_RaceCourseType.INTERMISSION;
     case 4:
     case "KNOCKOUT_SECTION":
-      return RaceCourse_RaceCourseType.KNOCKOUT_SECTION;
+      return RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return RaceCourse_RaceCourseType.UNRECOGNIZED;
+      return RaceCourseInfo_RaceCourseType.UNRECOGNIZED;
   }
 }
 
-export function raceCourse_RaceCourseTypeToJSON(object: RaceCourse_RaceCourseType): string {
+export function raceCourseInfo_RaceCourseTypeToJSON(object: RaceCourseInfo_RaceCourseType): string {
   switch (object) {
-    case RaceCourse_RaceCourseType.COURSE_TYPE_UNKNOWN:
+    case RaceCourseInfo_RaceCourseType.COURSE_TYPE_UNKNOWN:
       return "COURSE_TYPE_UNKNOWN";
-    case RaceCourse_RaceCourseType.STANDARD_LOOP:
+    case RaceCourseInfo_RaceCourseType.STANDARD_LOOP:
       return "STANDARD_LOOP";
-    case RaceCourse_RaceCourseType.STANDARD_POINT_TO_POINT:
+    case RaceCourseInfo_RaceCourseType.STANDARD_POINT_TO_POINT:
       return "STANDARD_POINT_TO_POINT";
-    case RaceCourse_RaceCourseType.INTERMISSION:
+    case RaceCourseInfo_RaceCourseType.INTERMISSION:
       return "INTERMISSION";
-    case RaceCourse_RaceCourseType.KNOCKOUT_SECTION:
+    case RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION:
       return "KNOCKOUT_SECTION";
-    case RaceCourse_RaceCourseType.UNRECOGNIZED:
+    case RaceCourseInfo_RaceCourseType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -1012,9 +1011,9 @@ export const FrameData: MessageFns<FrameData> = {
         : 0,
       placement: isSet(object.placement) ? placementFromJSON(object.placement) : 0,
       raceCourse: isSet(object.raceCourse)
-        ? raceCourseShortenedNameFromJSON(object.raceCourse)
+        ? raceCourseFromJSON(object.raceCourse)
         : isSet(object.race_course)
-        ? raceCourseShortenedNameFromJSON(object.race_course)
+        ? raceCourseFromJSON(object.race_course)
         : 0,
     };
   },
@@ -1040,7 +1039,7 @@ export const FrameData: MessageFns<FrameData> = {
       obj.placement = placementToJSON(message.placement);
     }
     if (message.raceCourse !== 0) {
-      obj.raceCourse = raceCourseShortenedNameToJSON(message.raceCourse);
+      obj.raceCourse = raceCourseToJSON(message.raceCourse);
     }
     return obj;
   },
@@ -1061,12 +1060,12 @@ export const FrameData: MessageFns<FrameData> = {
   },
 };
 
-function createBaseRaceCourse(): RaceCourse {
+function createBaseRaceCourseInfo(): RaceCourseInfo {
   return { name: "", shortenedName: 0, type: 0, numberOfLaps: 0 };
 }
 
-export const RaceCourse: MessageFns<RaceCourse> = {
-  encode(message: RaceCourse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
+  encode(message: RaceCourseInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -1077,15 +1076,15 @@ export const RaceCourse: MessageFns<RaceCourse> = {
       writer.uint32(24).int32(message.type);
     }
     if (message.numberOfLaps !== 0) {
-      writer.uint32(32).uint32(message.numberOfLaps);
+      writer.uint32(32).int32(message.numberOfLaps);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): RaceCourse {
+  decode(input: BinaryReader | Uint8Array, length?: number): RaceCourseInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseRaceCourse();
+    const message = createBaseRaceCourseInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1118,7 +1117,7 @@ export const RaceCourse: MessageFns<RaceCourse> = {
             break;
           }
 
-          message.numberOfLaps = reader.uint32();
+          message.numberOfLaps = reader.int32() as any;
           continue;
         }
       }
@@ -1130,45 +1129,45 @@ export const RaceCourse: MessageFns<RaceCourse> = {
     return message;
   },
 
-  fromJSON(object: any): RaceCourse {
+  fromJSON(object: any): RaceCourseInfo {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       shortenedName: isSet(object.shortenedName)
-        ? raceCourseShortenedNameFromJSON(object.shortenedName)
+        ? raceCourseFromJSON(object.shortenedName)
         : isSet(object.shortened_name)
-        ? raceCourseShortenedNameFromJSON(object.shortened_name)
+        ? raceCourseFromJSON(object.shortened_name)
         : 0,
-      type: isSet(object.type) ? raceCourse_RaceCourseTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? raceCourseInfo_RaceCourseTypeFromJSON(object.type) : 0,
       numberOfLaps: isSet(object.numberOfLaps)
-        ? globalThis.Number(object.numberOfLaps)
+        ? lapNumberFromJSON(object.numberOfLaps)
         : isSet(object.number_of_laps)
-        ? globalThis.Number(object.number_of_laps)
+        ? lapNumberFromJSON(object.number_of_laps)
         : 0,
     };
   },
 
-  toJSON(message: RaceCourse): unknown {
+  toJSON(message: RaceCourseInfo): unknown {
     const obj: any = {};
     if (message.name !== "") {
       obj.name = message.name;
     }
     if (message.shortenedName !== 0) {
-      obj.shortenedName = raceCourseShortenedNameToJSON(message.shortenedName);
+      obj.shortenedName = raceCourseToJSON(message.shortenedName);
     }
     if (message.type !== 0) {
-      obj.type = raceCourse_RaceCourseTypeToJSON(message.type);
+      obj.type = raceCourseInfo_RaceCourseTypeToJSON(message.type);
     }
     if (message.numberOfLaps !== 0) {
-      obj.numberOfLaps = Math.round(message.numberOfLaps);
+      obj.numberOfLaps = lapNumberToJSON(message.numberOfLaps);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RaceCourse>, I>>(base?: I): RaceCourse {
-    return RaceCourse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<RaceCourseInfo>, I>>(base?: I): RaceCourseInfo {
+    return RaceCourseInfo.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<RaceCourse>, I>>(object: I): RaceCourse {
-    const message = createBaseRaceCourse();
+  fromPartial<I extends Exact<DeepPartial<RaceCourseInfo>, I>>(object: I): RaceCourseInfo {
+    const message = createBaseRaceCourseInfo();
     message.name = object.name ?? "";
     message.shortenedName = object.shortenedName ?? 0;
     message.type = object.type ?? 0;
