@@ -19,12 +19,12 @@ class EnumTranslator:
         # We will build bidirectional maps for each enum defined in the proto
         self.enums = {
             "RacePhase": data_pb2.RacePhase,
-            "RaceCourseShortenedName": data_pb2.RaceCourseShortenedName,
+            "RaceCourse": data_pb2.RaceCourse,
             "LapNumber": data_pb2.LapNumber,
             "Placement": data_pb2.Placement,
             "Item": data_pb2.Item,
             "NumCoins": data_pb2.NumCoins,
-            "RaceCourseType": data_pb2.RaceCourse.RaceCourseType,
+            "RaceCourseType": data_pb2.RaceCourseInfo.RaceCourseType,
         }
 
         self.to_str = {}
@@ -41,14 +41,12 @@ class EnumTranslator:
     def racePhaseStringToEnum(self, string):
         return self.to_enum["RacePhase"].get(string.lower(), data_pb2.PHASE_UNKNOWN)
 
-    # --- RaceCourseShortenedName ---
-    def raceCourseShortenedNameEnumToString(self, value):
-        return self.to_str["RaceCourseShortenedName"].get(value, "track_unknown")
+    # --- RaceCourse ---
+    def raceCourseEnumToString(self, value):
+        return self.to_str["RaceCourse"].get(value, "track_unknown")
 
-    def raceCourseShortenedNameStringToEnum(self, string):
-        return self.to_enum["RaceCourseShortenedName"].get(
-            string.lower(), data_pb2.TRACK_UNKNOWN
-        )
+    def raceCourseStringToEnum(self, string):
+        return self.to_enum["RaceCourse"].get(string.lower(), data_pb2.TRACK_UNKNOWN)
 
     # --- LapNumber ---
     def lapNumberEnumToString(self, value):
@@ -84,7 +82,7 @@ class EnumTranslator:
 
     def raceCourseTypeStringToEnum(self, string):
         return self.to_enum["RaceCourseType"].get(
-            string.lower(), data_pb2.RaceCourse.COURSE_TYPE_UNKNOWN
+            string.lower(), data_pb2.RaceCourseInfo.COURSE_TYPE_UNKNOWN
         )
 
 
