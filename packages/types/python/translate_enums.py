@@ -1,6 +1,7 @@
-import sys
-import data_pb2
 import os
+import sys
+
+import packages.types.python.generated.data_pb2 as data_pb2
 
 # Add generated directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), "generated"))
@@ -11,7 +12,7 @@ class EnumTranslator:
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(EnumTranslator, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
             cls._instance._init_mappings()
         return cls._instance
 

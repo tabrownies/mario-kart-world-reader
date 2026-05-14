@@ -351,10 +351,10 @@ export enum Item {
   SPINY_SHELL = 21,
   SUPER_HORN = 22,
   STAR = 23,
-  TRIPPLE_BANANAS = 24,
-  TRIPPLE_GREEN_SHELLS = 25,
-  TRIPPLE_MUSHROOMS = 26,
-  TRIPPLE_RED_SHELLS = 27,
+  TRIPLE_BANANAS = 24,
+  TRIPLE_GREEN_SHELLS = 25,
+  TRIPLE_MUSHROOMS = 26,
+  TRIPLE_RED_SHELLS = 27,
   QUESTION_MARK_BOX = 28,
   DASH_FOOD_ROULETTE = 29,
   DASH_FOOD_HAMBURGER = 30,
@@ -457,17 +457,17 @@ export function itemFromJSON(object: any): Item {
     case "STAR":
       return Item.STAR;
     case 24:
-    case "TRIPPLE_BANANAS":
-      return Item.TRIPPLE_BANANAS;
+    case "TRIPLE_BANANAS":
+      return Item.TRIPLE_BANANAS;
     case 25:
-    case "TRIPPLE_GREEN_SHELLS":
-      return Item.TRIPPLE_GREEN_SHELLS;
+    case "TRIPLE_GREEN_SHELLS":
+      return Item.TRIPLE_GREEN_SHELLS;
     case 26:
-    case "TRIPPLE_MUSHROOMS":
-      return Item.TRIPPLE_MUSHROOMS;
+    case "TRIPLE_MUSHROOMS":
+      return Item.TRIPLE_MUSHROOMS;
     case 27:
-    case "TRIPPLE_RED_SHELLS":
-      return Item.TRIPPLE_RED_SHELLS;
+    case "TRIPLE_RED_SHELLS":
+      return Item.TRIPLE_RED_SHELLS;
     case 28:
     case "QUESTION_MARK_BOX":
       return Item.QUESTION_MARK_BOX;
@@ -597,14 +597,14 @@ export function itemToJSON(object: Item): string {
       return "SUPER_HORN";
     case Item.STAR:
       return "STAR";
-    case Item.TRIPPLE_BANANAS:
-      return "TRIPPLE_BANANAS";
-    case Item.TRIPPLE_GREEN_SHELLS:
-      return "TRIPPLE_GREEN_SHELLS";
-    case Item.TRIPPLE_MUSHROOMS:
-      return "TRIPPLE_MUSHROOMS";
-    case Item.TRIPPLE_RED_SHELLS:
-      return "TRIPPLE_RED_SHELLS";
+    case Item.TRIPLE_BANANAS:
+      return "TRIPLE_BANANAS";
+    case Item.TRIPLE_GREEN_SHELLS:
+      return "TRIPLE_GREEN_SHELLS";
+    case Item.TRIPLE_MUSHROOMS:
+      return "TRIPLE_MUSHROOMS";
+    case Item.TRIPLE_RED_SHELLS:
+      return "TRIPLE_RED_SHELLS";
     case Item.QUESTION_MARK_BOX:
       return "QUESTION_MARK_BOX";
     case Item.DASH_FOOD_ROULETTE:
@@ -881,7 +881,15 @@ export function raceCourseInfo_RaceCourseTypeToJSON(object: RaceCourseInfo_RaceC
 }
 
 function createBaseFrameData(): FrameData {
-  return { lapNumber: 0, racePhase: 0, numCoins: 0, primaryItem: 0, secondaryItem: 0, placement: 0, raceCourse: 0 };
+  return {
+    lapNumber: 0,
+    racePhase: 0,
+    numCoins: 0,
+    primaryItem: 0,
+    secondaryItem: 0,
+    placement: 0,
+    raceCourse: 0,
+  };
 }
 
 export const FrameData: MessageFns<FrameData> = {
@@ -987,34 +995,34 @@ export const FrameData: MessageFns<FrameData> = {
       lapNumber: isSet(object.lapNumber)
         ? lapNumberFromJSON(object.lapNumber)
         : isSet(object.lap_number)
-        ? lapNumberFromJSON(object.lap_number)
-        : 0,
+          ? lapNumberFromJSON(object.lap_number)
+          : 0,
       racePhase: isSet(object.racePhase)
         ? racePhaseFromJSON(object.racePhase)
         : isSet(object.race_phase)
-        ? racePhaseFromJSON(object.race_phase)
-        : 0,
+          ? racePhaseFromJSON(object.race_phase)
+          : 0,
       numCoins: isSet(object.numCoins)
         ? numCoinsFromJSON(object.numCoins)
         : isSet(object.num_coins)
-        ? numCoinsFromJSON(object.num_coins)
-        : 0,
+          ? numCoinsFromJSON(object.num_coins)
+          : 0,
       primaryItem: isSet(object.primaryItem)
         ? itemFromJSON(object.primaryItem)
         : isSet(object.primary_item)
-        ? itemFromJSON(object.primary_item)
-        : 0,
+          ? itemFromJSON(object.primary_item)
+          : 0,
       secondaryItem: isSet(object.secondaryItem)
         ? itemFromJSON(object.secondaryItem)
         : isSet(object.secondary_item)
-        ? itemFromJSON(object.secondary_item)
-        : 0,
+          ? itemFromJSON(object.secondary_item)
+          : 0,
       placement: isSet(object.placement) ? placementFromJSON(object.placement) : 0,
       raceCourse: isSet(object.raceCourse)
         ? raceCourseFromJSON(object.raceCourse)
         : isSet(object.race_course)
-        ? raceCourseFromJSON(object.race_course)
-        : 0,
+          ? raceCourseFromJSON(object.race_course)
+          : 0,
     };
   },
 
@@ -1135,14 +1143,14 @@ export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
       shortenedName: isSet(object.shortenedName)
         ? raceCourseFromJSON(object.shortenedName)
         : isSet(object.shortened_name)
-        ? raceCourseFromJSON(object.shortened_name)
-        : 0,
+          ? raceCourseFromJSON(object.shortened_name)
+          : 0,
       type: isSet(object.type) ? raceCourseInfo_RaceCourseTypeFromJSON(object.type) : 0,
       numberOfLaps: isSet(object.numberOfLaps)
         ? lapNumberFromJSON(object.numberOfLaps)
         : isSet(object.number_of_laps)
-        ? lapNumberFromJSON(object.number_of_laps)
-        : 0,
+          ? lapNumberFromJSON(object.number_of_laps)
+          : 0,
     };
   },
 
@@ -1178,14 +1186,19 @@ export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
