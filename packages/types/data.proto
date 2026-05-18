@@ -10,7 +10,36 @@ package types;
 enum RaceCourse {
   // Enums must have unique names within the package
   TRACK_UNKNOWN = 0;
-  RAINBOW_ROAD = 1;
+  ACORN_HEIGHTS = 1;
+  AIRSHIP_FORTRESS = 2;
+  BOO_CINEMA = 3;
+  BOWSERS_CASTLE = 4;
+  CHEEP_CHEEP_FALLS = 5;
+  CHOCO_MOUNTAIN = 6;
+  CROWN_CITY = 7;
+  DANDELION_DEPTHS = 8;
+  DESERT_HILLS = 9;
+  DINO_DINO_JUNGLE = 10;
+  DK_PASS = 11;
+  DK_SPACEPORT = 12
+  DRY_BONES_BURNOUT = 13;
+  FARAWAY_OASIS = 14;
+  GREAT_?_BLOCK_RUINS = 15;
+  KOOPA_TROOPA_BEACH = 16;
+  MARIO_BROS_CIRCUIT = 17;
+  MARIO_CIRCUIT = 18;
+  MOO_MOO_MEADOWS = 19;
+  PEACH_BEACH = 20;
+  PEACH_STADIUM = 21;
+  RAINBOW_ROAD = 22;
+  SALTY_SALTY_SPEEDWAY = 23;
+  SHY_GUY_BAZAAR = 24;
+  SKY_HIGH_SUNDAE = 25;
+  STARVIEW_PEAK = 26;
+  TOADS_FACTORY = 27;
+  WARIO_STADIUM = 28;
+  WARIOS_GALLEON = 29;
+  WHISTLESTOP_SUMMIT = 30;
   // we will fill these out as we go
   // Convention: intermission tracks named as <course_name_one>_to_<course_name_two>
 }
