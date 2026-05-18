@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx test_translator.ts",
+    "lint": "eslint . --config ../../formatters/eslint.config.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,10 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.3.0",
+    "typescript-eslint": "^8.59.3"
+  }
 }

@@ -1,3 +1,4 @@
+import os
 import sys
 try:
     import data_pb2
@@ -14,7 +15,7 @@ class EnumTranslator:
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(EnumTranslator, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
             cls._instance._init_mappings()
         return cls._instance
 

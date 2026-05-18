@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "lint:ts": "eslint . --config packages/formatters/eslint.config.js",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\" --config packages/formatters/.prettierrc"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.3",
+    "@typescript-eslint/parser": "^8.59.3",
+    "eslint": "^10.3.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
+  }
+}
