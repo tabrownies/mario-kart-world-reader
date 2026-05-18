@@ -2,8 +2,7 @@ import streamlit as st
 import os
 import ffmpeg
 from datetime import datetime, timezone
-
-video_dir = "./training_data/uploaded_videos"
+from utils.constants import VIDEO_DIR, FRAMES_PER_SECOND
 
 from utils.packages.types.python.translate_enums import EnumTranslator
 
@@ -12,9 +11,9 @@ et = EnumTranslator()
 race_track_strings = []
 race_track = None
 while race_track != "track_unknown":
-    # st.toast(f"trying enum {len(race_track_strings)+1}")
+    st.write(f"trying enum {len(race_track_strings)+1}")
     race_track = et.raceCourseEnumToString(len(race_track_strings)+1)
-    # st.toast(f"got {race_track=}")
+    st.write(f"got {race_track=}")
     if race_track == "track_unknown":
         break
     race_track_strings.append(race_track)
@@ -72,7 +71,7 @@ if not uploaded_file:
 
 def process_video(uploaded_file):
 
-    file_path = os.path.join(video_dir, uploaded_file.name)
+    file_path = os.path.join(VIDEO_DIR, uploaded_file.name)
     with open(file_path, "wb") as file:
         file.write(uploaded_file.getbuffer())
     # st.success(f"Video saved to {file_path}")
@@ -83,11 +82,12 @@ def process_video(uploaded_file):
         video_id = generate_video_id(track_name=track_name, num_players=num_players, race_type=race_type, locale=locale, chatmode=chatmode)
 
         stream = ffmpeg.input(file_path)
-        stream = ffmpeg.filter(stream, "fps", fps=10)
-        stream = ffmpeg.output(stream, os.path.join(video_dir,video_id+".mp4"), f="mp4")
+        stream = ffmpeg.filter(stream, "fps", fps=FRAMES_PER_SECOND)
+        stream = ffmpeg.filter(stream, 'scale', -1, 180) # downsample the video so it take up very little space
+        stream = ffmpeg.output(stream, os.path.join(VIDEO_DIR,video_id+".mp4"), f="mp4")
         ffmpeg.run(stream)
 
-    st.success(f"saved {video_id+'.mp4'} video as 10 fps mp4")
+    st.success(f"saved {video_id+'.mp4'} video as {FRAMES_PER_SECOND} fps mp4")
     os.remove(file_path)
     # st.success(f"removed {file_path}")
 

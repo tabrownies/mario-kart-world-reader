@@ -1,5 +1,8 @@
 import sys
-import data_pb2
+try:
+    import data_pb2
+except:
+    import utils.packages.types.python.generated.data_pb2 as data_pb2
 import os
 
 # Add generated directory to path
