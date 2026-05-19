@@ -8,6 +8,8 @@ export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.r
     ".venv/**",
     "dist/**",
     "build/**",
+    "**/out/**",
+    "**/.next/**",
     ".jj/**",
     ".git/**",
   ],

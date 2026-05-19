@@ -3,13 +3,24 @@
   "type": "module",
   "scripts": {
     "lint:ts": "eslint . --config packages/formatters/eslint.config.js",
-    "format:check": "prettier --check \"**/*.{ts,js,json,md}\" --config packages/formatters/.prettierrc"
+    "lint:ts:fix": "eslint . --config packages/formatters/eslint.config.js --fix",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\" --config packages/formatters/.prettierrc",
+    "format:fix": "prettier --write \"**/*.{ts,js,json,md}\" --config packages/formatters/.prettierrc",
+    "lint:py": "command -v ruff >/dev/null 2>&1 && ruff check --config packages/formatters/pyproject.toml . || echo \"[Warning] Ruff not installed, skipping Python linting.\"",
+    "lint:py:fix": "command -v ruff >/dev/null 2>&1 && ruff check --fix --config packages/formatters/pyproject.toml . || echo \"[Warning] Ruff not installed, skipping Python lint fixes.\"",
+    "format:py:check": "command -v ruff >/dev/null 2>&1 && ruff format --check --config packages/formatters/pyproject.toml . || echo \"[Warning] Ruff not installed, skipping Python format checks.\"",
+    "format:py:fix": "command -v ruff >/dev/null 2>&1 && ruff format --config packages/formatters/pyproject.toml . || echo \"[Warning] Ruff not installed, skipping Python formatting.\"",
+    "format:proto:check": "command -v clang-format >/dev/null 2>&1 && clang-format --style=file:packages/formatters/.clang-format --Werror -n packages/types/data.proto || echo \"[Warning] Clang-format not installed, skipping Protobuf format checks.\"",
+    "format:proto:fix": "command -v clang-format >/dev/null 2>&1 && clang-format -i --style=file:packages/formatters/.clang-format packages/types/data.proto || echo \"[Warning] Clang-format not installed, skipping Protobuf formatting.\"",
+    "fix": "npm run format:fix && npm run lint:ts:fix && npm run format:py:fix && npm run lint:py:fix && npm run format:proto:fix",
+    "check:all": "npm run format:check && npm run lint:ts && npm run format:py:check && npm run lint:py && npm run format:proto:check"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^8.59.3",
     "@typescript-eslint/parser": "^8.59.3",
     "eslint": "^10.3.0",
+    "prettier": "^3.2.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.3"
   }
