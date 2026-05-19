@@ -10,7 +10,7 @@ package types;
 enum RaceCourse {
   // Enums must have unique names within the package
   TRACK_UNKNOWN = 0;
-  ACORN_HEIGHTS = 22;
+  ACORN_HEIGHTS = 1;
   AIRSHIP_FORTRESS = 2;
   BOO_CINEMA = 3;
   BOWSERS_CASTLE = 4;
@@ -31,7 +31,7 @@ enum RaceCourse {
   MOO_MOO_MEADOWS = 19;
   PEACH_BEACH = 20;
   PEACH_STADIUM = 21;
-  RAINBOW_ROAD = 1;
+  RAINBOW_ROAD = 22;
   SALTY_SALTY_SPEEDWAY = 23;
   SHY_GUY_BAZAAR = 24;
   SKY_HIGH_SUNDAE = 25;

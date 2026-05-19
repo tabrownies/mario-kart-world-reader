@@ -11,9 +11,9 @@ et = EnumTranslator()
 race_track_strings = []
 race_track = None
 while race_track != "track_unknown":
-    st.write(f"trying enum {len(race_track_strings)+1}")
+    # st.write(f"trying enum {len(race_track_strings)+1}")
     race_track = et.raceCourseEnumToString(len(race_track_strings)+1)
-    st.write(f"got {race_track=}")
+    # st.write(f"got {race_track=}")
     if race_track == "track_unknown":
         break
     race_track_strings.append(race_track)
@@ -83,7 +83,8 @@ def process_video(uploaded_file):
 
         stream = ffmpeg.input(file_path)
         stream = ffmpeg.filter(stream, "fps", fps=FRAMES_PER_SECOND)
-        stream = ffmpeg.filter(stream, 'scale', -1, 180) # downsample the video so it take up very little space
+        stream = ffmpeg.filter(stream, 'scale', -1, 180) # downsample the video so it takes up very little space
+        stream = ffmpeg.filter(stream, "hue", s=0) # convert to greyscale
         stream = ffmpeg.output(stream, os.path.join(VIDEO_DIR,video_id+".mp4"), f="mp4")
         ffmpeg.run(stream)
 

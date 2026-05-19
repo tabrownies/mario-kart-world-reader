@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import cv2
 import pandas as pd
+import streamlit_hotkeys as hotkeys
 
 from utils.constants import VIDEO_DIR, TRAINING_CSV_DIR
 
@@ -45,8 +46,13 @@ if "loaded_video" not in st.session_state:
     with st.spinner():
         st.session_state["loaded_video"] = cv2.VideoCapture(os.path.join(VIDEO_DIR, chosen_video))
     loaded_video = st.session_state["loaded_video"]
+    st.toast("loaded video from file")
 else:
     loaded_video = st.session_state["loaded_video"]
+    st.toast("loaded video from session state")
+
+
+video_frame_count = int(loaded_video.get(cv2.CAP_PROP_FRAME_COUNT))
 
 
 
@@ -56,18 +62,33 @@ else:
 chosen_video_name = os.path.splitext(chosen_video)[0]
 chosen_csv_name = chosen_video_name+".csv"
 chosen_csv_path = os.path.join(TRAINING_CSV_DIR, "UNFINISHED_"+chosen_csv_name)
-dataframe_edits = []
-if os.path.exists(chosen_csv_name):
-    dataframe_edits.append(pd.read_csv(chosen_csv_path))
+if "dfedits" not in st.session_state:
+    st.session_state["dfedits"] = []
+    dataframe_edits = st.session_state['dfedits']
 else:
-    csv_headers = [
-        "frame_id", "track", "placement", "lap_count", 
-        "coin_count", "primary_item", "secondary_item", "race_phase"
-    ]
-    dataframe_edits.append(pd.DataFrame(columns=csv_headers, index=0))
-    dataframe_edits[-1].to_csv(chosen_csv_path)
+    dataframe_edits = st.session_state['dfedits']
 
-# display 0'th frame of video
+if len(dataframe_edits) == 0:
+    if os.path.exists(chosen_csv_path):
+        dataframe_edits.append(pd.read_csv(chosen_csv_path))
+    else:
+        csv_headers = [
+            "frame_id", "track", "placement", "lap_count", 
+            "coin_count", "primary_item", "secondary_item", "race_phase"
+        ]
+        dataframe_edits.append(pd.DataFrame(columns=csv_headers))
+        dataframe_edits[-1].to_csv(chosen_csv_path)
+
+
+
+# display i'th frame of video
+st.session_state.setdefault("frameidx", 0)
+st.session_state.setdefault("frameskip", 1)
+loaded_video.set(cv2.CAP_PROP_POS_FRAMES, max(0,min(st.session_state['frameidx'], video_frame_count)))
+
+ret, frame = loaded_video.read()
+
+st.image(frame)
 
 # implement "video" "scrubbing" 
 # (yes there's two different sets of quotation marks. yes that's on purpose)
@@ -77,6 +98,40 @@ else:
     # on right arrow, skip forward
     # on left arrow key, skip backward
         # wasd support (meant for laptops without good arrow keys)
+
+left,right = st.columns(2)
+
+with left:
+    st.session_state["frameidx"] = st.number_input(label="Frame Index", min_value=0, max_value=video_frame_count, value=st.session_state['frameidx'])
+
+with right:
+    st.session_state['frameskip'] = st.number_input(label="Frame skip", min_value=1, value=st.session_state['frameskip'])
+
+hotkeys.activate([
+    hotkeys.hk("up", "ArrowUp", ignore_repeat=False),
+    hotkeys.hk("down", "ArrowDown", ignore_repeat=False),
+    hotkeys.hk("left", "ArrowLeft", ignore_repeat=False),
+    hotkeys.hk("right", "ArrowRight", ignore_repeat=False),
+    hotkeys.hk('w', 'w', ignore_repeat=False),
+    hotkeys.hk('a', 'a', ignore_repeat=False),
+    hotkeys.hk('s', 's', ignore_repeat=False),
+    hotkeys.hk('d', 'd', ignore_repeat=False)
+])
+
+if hotkeys.pressed("up") or hotkeys.pressed("w"):
+    st.session_state['frameskip'] += 1
+
+if hotkeys.pressed('down') or hotkeys.pressed('s'):
+    st.session_state['frameskip'] = max(1, st.session_state['frameskip'] - 1)
+
+if hotkeys.pressed('left') or hotkeys.pressed('a'):
+    st.session_state['frameidx'] = max(0, st.session_state['frameidx'] - st.session_state['frameskip'])
+
+if hotkeys.pressed('right') or hotkeys.pressed('d'):
+    st.session_state['frameidx'] = min(video_frame_count, st.session_state['frameidx'] + st.session_state['frameskip'])
+
+
+
     # drop-down menus to select place, primary item, secondary item, coin count, race phase
     # a button called "Add Key Frame" that populates all unpopulated csv data 
         # from the last key frame to the current key frame with the selected values
@@ -84,6 +139,7 @@ else:
             # shouldn't be to hard, just keep a list of csv changes, and display the most current one
     # some UI design to show how the data has been set so far (display key frames?)
 
+st.write(f"current working dataframe:")
 st.write(dataframe_edits[-1])
 
 # Once that video is all scrubbed through (when working csv is all populated)
@@ -110,4 +166,5 @@ st.write(dataframe_edits[-1])
 
 
 with open(__file__, 'r') as file:
+    st.write("page source:")
     st.code(file.read())
