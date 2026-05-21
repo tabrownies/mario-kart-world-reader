@@ -1,0 +1,9 @@
+# proto-file: packages/types/data.proto
+# proto-message: types.RaceCourseInfoList
+
+race_courses {
+  name: "Rainbow Road"
+  shortened_name: RAINBOW_ROAD
+  type: LONG_LOOP
+  number_of_laps: LAP_4
+}
