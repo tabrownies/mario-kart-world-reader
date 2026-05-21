@@ -9,6 +9,8 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
 export const protobufPackage = "types";
 
+/** buf:lint:file-ignore ENUM_VALUE_PREFIX */
+
 export enum RaceCourse {
   /** TRACK_UNKNOWN - Enums must have unique names within the package */
   TRACK_UNKNOWN = 0,
@@ -835,6 +837,8 @@ export enum RaceCourseInfo_RaceCourseType {
   STANDARD_POINT_TO_POINT = 2,
   INTERMISSION = 3,
   KNOCKOUT_SECTION = 4,
+  /** LONG_LOOP - this is like rainbow road */
+  LONG_LOOP = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -855,6 +859,9 @@ export function raceCourseInfo_RaceCourseTypeFromJSON(object: any): RaceCourseIn
     case 4:
     case "KNOCKOUT_SECTION":
       return RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION;
+    case 5:
+    case "LONG_LOOP":
+      return RaceCourseInfo_RaceCourseType.LONG_LOOP;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -874,22 +881,20 @@ export function raceCourseInfo_RaceCourseTypeToJSON(object: RaceCourseInfo_RaceC
       return "INTERMISSION";
     case RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION:
       return "KNOCKOUT_SECTION";
+    case RaceCourseInfo_RaceCourseType.LONG_LOOP:
+      return "LONG_LOOP";
     case RaceCourseInfo_RaceCourseType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 
+export interface RaceCourseInfoList {
+  courses: RaceCourseInfo[];
+}
+
 function createBaseFrameData(): FrameData {
-  return {
-    lapNumber: 0,
-    racePhase: 0,
-    numCoins: 0,
-    primaryItem: 0,
-    secondaryItem: 0,
-    placement: 0,
-    raceCourse: 0,
-  };
+  return { lapNumber: 0, racePhase: 0, numCoins: 0, primaryItem: 0, secondaryItem: 0, placement: 0, raceCourse: 0 };
 }
 
 export const FrameData: MessageFns<FrameData> = {
@@ -995,34 +1000,34 @@ export const FrameData: MessageFns<FrameData> = {
       lapNumber: isSet(object.lapNumber)
         ? lapNumberFromJSON(object.lapNumber)
         : isSet(object.lap_number)
-          ? lapNumberFromJSON(object.lap_number)
-          : 0,
+        ? lapNumberFromJSON(object.lap_number)
+        : 0,
       racePhase: isSet(object.racePhase)
         ? racePhaseFromJSON(object.racePhase)
         : isSet(object.race_phase)
-          ? racePhaseFromJSON(object.race_phase)
-          : 0,
+        ? racePhaseFromJSON(object.race_phase)
+        : 0,
       numCoins: isSet(object.numCoins)
         ? numCoinsFromJSON(object.numCoins)
         : isSet(object.num_coins)
-          ? numCoinsFromJSON(object.num_coins)
-          : 0,
+        ? numCoinsFromJSON(object.num_coins)
+        : 0,
       primaryItem: isSet(object.primaryItem)
         ? itemFromJSON(object.primaryItem)
         : isSet(object.primary_item)
-          ? itemFromJSON(object.primary_item)
-          : 0,
+        ? itemFromJSON(object.primary_item)
+        : 0,
       secondaryItem: isSet(object.secondaryItem)
         ? itemFromJSON(object.secondaryItem)
         : isSet(object.secondary_item)
-          ? itemFromJSON(object.secondary_item)
-          : 0,
+        ? itemFromJSON(object.secondary_item)
+        : 0,
       placement: isSet(object.placement) ? placementFromJSON(object.placement) : 0,
       raceCourse: isSet(object.raceCourse)
         ? raceCourseFromJSON(object.raceCourse)
         : isSet(object.race_course)
-          ? raceCourseFromJSON(object.race_course)
-          : 0,
+        ? raceCourseFromJSON(object.race_course)
+        : 0,
     };
   },
 
@@ -1143,14 +1148,14 @@ export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
       shortenedName: isSet(object.shortenedName)
         ? raceCourseFromJSON(object.shortenedName)
         : isSet(object.shortened_name)
-          ? raceCourseFromJSON(object.shortened_name)
-          : 0,
+        ? raceCourseFromJSON(object.shortened_name)
+        : 0,
       type: isSet(object.type) ? raceCourseInfo_RaceCourseTypeFromJSON(object.type) : 0,
       numberOfLaps: isSet(object.numberOfLaps)
         ? lapNumberFromJSON(object.numberOfLaps)
         : isSet(object.number_of_laps)
-          ? lapNumberFromJSON(object.number_of_laps)
-          : 0,
+        ? lapNumberFromJSON(object.number_of_laps)
+        : 0,
     };
   },
 
@@ -1184,21 +1189,78 @@ export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
   },
 };
 
+function createBaseRaceCourseInfoList(): RaceCourseInfoList {
+  return { courses: [] };
+}
+
+export const RaceCourseInfoList: MessageFns<RaceCourseInfoList> = {
+  encode(message: RaceCourseInfoList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.courses) {
+      RaceCourseInfo.encode(v!, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): RaceCourseInfoList {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRaceCourseInfoList();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.courses.push(RaceCourseInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RaceCourseInfoList {
+    return {
+      courses: globalThis.Array.isArray(object?.courses)
+        ? object.courses.map((e: any) => RaceCourseInfo.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: RaceCourseInfoList): unknown {
+    const obj: any = {};
+    if (message.courses?.length) {
+      obj.courses = message.courses.map((e) => RaceCourseInfo.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<RaceCourseInfoList>, I>>(base?: I): RaceCourseInfoList {
+    return RaceCourseInfoList.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<RaceCourseInfoList>, I>>(object: I): RaceCourseInfoList {
+    const message = createBaseRaceCourseInfoList();
+    message.courses = object.courses?.map((e) => RaceCourseInfo.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends {}
-        ? { [K in keyof T]?: DeepPartial<T[K]> }
-        : Partial<T>;
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
+export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
