@@ -52,7 +52,8 @@ app.get('/api/frames', async (req, res) => {
 
     try {
         const rows = await readCsv(filePath);
-        const isAllDone = rows.length > 0 && rows.every(row => !Object.values(row).some(val => val === 'unknown'));
+        const isUnknownVal = val => !val || val === 'unknown' || val.includes('unknown');
+        const isAllDone = rows.length > 0 && rows.every(row => !Object.values(row).some(isUnknownVal));
 
         if (isAllDone) {
             const newPath = filePath.replace('UNFINISHED', '').replace('__', '_');
@@ -63,7 +64,7 @@ app.get('/api/frames', async (req, res) => {
         const frames = rows.map(row => {
             const frame_id = row.frame_id;
             const runName = frame_id.split('_').slice(1).join('_').replace('.png', '');
-            const isCompleted = !Object.values(row).some(val => val === 'unknown');
+            const isCompleted = !Object.values(row).some(isUnknownVal);
             return {
                 frame_id,
                 imageUrl: `/frames/${runName}/${frame_id}`,
