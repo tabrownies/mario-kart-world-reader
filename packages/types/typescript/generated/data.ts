@@ -835,6 +835,8 @@ export enum RaceCourseInfo_RaceCourseType {
   STANDARD_POINT_TO_POINT = 2,
   INTERMISSION = 3,
   KNOCKOUT_SECTION = 4,
+  /** LONG_LOOP - this is like rainbow road */
+  LONG_LOOP = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -855,6 +857,9 @@ export function raceCourseInfo_RaceCourseTypeFromJSON(object: any): RaceCourseIn
     case 4:
     case "KNOCKOUT_SECTION":
       return RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION;
+    case 5:
+    case "LONG_LOOP":
+      return RaceCourseInfo_RaceCourseType.LONG_LOOP;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -874,10 +879,16 @@ export function raceCourseInfo_RaceCourseTypeToJSON(object: RaceCourseInfo_RaceC
       return "INTERMISSION";
     case RaceCourseInfo_RaceCourseType.KNOCKOUT_SECTION:
       return "KNOCKOUT_SECTION";
+    case RaceCourseInfo_RaceCourseType.LONG_LOOP:
+      return "LONG_LOOP";
     case RaceCourseInfo_RaceCourseType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
+}
+
+export interface RaceCourseInfoList {
+  raceCourses: RaceCourseInfo[];
 }
 
 function createBaseFrameData(): FrameData {
@@ -1180,6 +1191,70 @@ export const RaceCourseInfo: MessageFns<RaceCourseInfo> = {
     message.shortenedName = object.shortenedName ?? 0;
     message.type = object.type ?? 0;
     message.numberOfLaps = object.numberOfLaps ?? 0;
+    return message;
+  },
+};
+
+function createBaseRaceCourseInfoList(): RaceCourseInfoList {
+  return { raceCourses: [] };
+}
+
+export const RaceCourseInfoList: MessageFns<RaceCourseInfoList> = {
+  encode(message: RaceCourseInfoList, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.raceCourses) {
+      RaceCourseInfo.encode(v!, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): RaceCourseInfoList {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRaceCourseInfoList();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.raceCourses.push(RaceCourseInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RaceCourseInfoList {
+    return {
+      raceCourses: globalThis.Array.isArray(object?.raceCourses)
+        ? object.raceCourses.map((e: any) => RaceCourseInfo.fromJSON(e))
+        : globalThis.Array.isArray(object?.race_courses)
+          ? object.race_courses.map((e: any) => RaceCourseInfo.fromJSON(e))
+          : [],
+    };
+  },
+
+  toJSON(message: RaceCourseInfoList): unknown {
+    const obj: any = {};
+    if (message.raceCourses?.length) {
+      obj.raceCourses = message.raceCourses.map((e) => RaceCourseInfo.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<RaceCourseInfoList>, I>>(base?: I): RaceCourseInfoList {
+    return RaceCourseInfoList.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<RaceCourseInfoList>, I>>(object: I): RaceCourseInfoList {
+    const message = createBaseRaceCourseInfoList();
+    message.raceCourses = object.raceCourses?.map((e) => RaceCourseInfo.fromPartial(e)) || [];
     return message;
   },
 };

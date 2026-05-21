@@ -164,5 +164,10 @@ message RaceCourseInfo {
     STANDARD_POINT_TO_POINT = 2;
     INTERMISSION = 3;
     KNOCKOUT_SECTION = 4;
+    LONG_LOOP = 5;  // this is like rainbow road
   }
+}
+
+message RaceCourseInfoList {
+  repeated RaceCourseInfo race_courses = 1;
 }
