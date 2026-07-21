@@ -2,6 +2,7 @@ import time
 import cv2
 import numpy as np
 
+
 class OBSVirtualCameraStream:
     def __init__(self, camera_index):
         # Initialize video capture with the given camera index
@@ -17,7 +18,7 @@ class OBSVirtualCameraStream:
 
         if not ret:
             raise RuntimeError("Failed to capture frame")
-        
+
         # Return the frame as a NumPy array
         return frame
 
